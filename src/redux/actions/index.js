@@ -5,6 +5,12 @@ export const mudarEmail = (email) => ({
   email,
 });
 
-export const mudarWallet = () => {
+export const actionCurrencies = (objeto) => ({
+  type: 'ADICONAR_MOEDA',
+  objeto,
+});
 
-};
+export const fetchCurrencies = () => (dispatch) => fetch('https://economia.awesomeapi.com.br/json/all')
+  .then((response) => response.json())
+  .then((json) => dispatch(actionCurrencies(json)))
+  .catch((error) => console.log(error));

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { mudarEmail } from '../redux/actions';
+import { fetchCurrencies, mudarEmail } from '../redux/actions';
 
 const minimoSenha = 6;
 
@@ -13,6 +13,11 @@ class Login extends React.Component {
       email: '',
       disabled: true,
     };
+  }
+
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(fetchCurrencies());
   }
 
   entrar = () => {

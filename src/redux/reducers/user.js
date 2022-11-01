@@ -7,7 +7,6 @@ const user = (state = initialState, action) => {
   switch (action.type) {
   case 'MUDAR_EMAIL':
     return {
-      ...state,
       email: action.email,
     };
   default:
