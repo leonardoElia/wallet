@@ -1,14 +1,81 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { actionAdiconarDespesa, fetchCurrencies } from '../redux/actions';
 
 class WalletForm extends Component {
-  formDespesa = () => {
+  constructor() {
+    super();
 
+    this.state = {
+      valor: '',
+      descricao: '',
+      moeda: 'USD',
+      formaPagamento: 'Cartão de crédito',
+      categoriaDespesa: '',
+      disabled: true,
+      id: 0,
+    };
+  }
+
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(fetchCurrencies());
+  }
+
+  fetchDaAPi = async () => {
+    const url = 'https://economia.awesomeapi.com.br/json/all';
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+  };
+
+  validarBotao = () => {
+    const { valor, descricao, moeda, formaPagamento, categoriaDespesa } = this.state;
+    const estados = [valor, descricao, moeda, formaPagamento, categoriaDespesa];
+    const validacao = estados.every((e) => e !== '');
+    if (validacao === true) {
+      this.setState({ disabled: false });
+    } else {
+      this.setState({ disabled: true });
+    }
+  };
+
+  formDespesa = (event) => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value }, this.validarBotao);
+  };
+
+  adicionar = async () => {
+    const objetoAPI = await this.fetchDaAPi();
+    delete objetoAPI.USDT;
+    const { valor, descricao, moeda, formaPagamento, categoriaDespesa, id } = this.state;
+    const { dispatch } = this.props;
+    const validacaoValor = valor.replace(',', '.');
+    if (Number(validacaoValor)) {
+      const despesa = {
+        id,
+        value: valor,
+        description: descricao,
+        currency: moeda,
+        method: formaPagamento,
+        tag: categoriaDespesa,
+        exchangeRates: objetoAPI,
+      };
+      dispatch(actionAdiconarDespesa(despesa));
+      this.setState({
+        id: id + 1,
+        valor: '',
+        descricao: '',
+        disabled: true,
+      });
+    }
   };
 
   render() {
     const { moedas } = this.props;
+    const { valor, descricao, moeda, formaPagamento, categoriaDespesa,
+      disabled } = this.state;
     return (
       <>
         <h1>WalletForm</h1>
@@ -18,8 +85,9 @@ class WalletForm extends Component {
             type="text"
             data-testid="value-input"
             id="despesa"
-            name="despesa"
+            name="valor"
             onChange={ this.formDespesa }
+            value={ valor }
           />
         </label>
         <label htmlFor="descricao">
@@ -29,6 +97,7 @@ class WalletForm extends Component {
             id="descricao"
             name="descricao"
             onChange={ this.formDespesa }
+            value={ descricao }
           />
         </label>
         <label htmlFor="moeda">
@@ -38,6 +107,7 @@ class WalletForm extends Component {
             id="moeda"
             onChange={ this.formDespesa }
             data-testid="currency-input"
+            value={ moeda }
           >
             {moedas.map((e, i) => <option value={ e } key={ i }>{e}</option>)}
 
@@ -45,7 +115,13 @@ class WalletForm extends Component {
         </label>
         <label htmlFor="pagamento">
           Forma de pagamento
-          <select data-testid="method-input" id="pagamento">
+          <select
+            data-testid="method-input"
+            id="pagamento"
+            value={ formaPagamento }
+            name="formaPagamento"
+            onChange={ this.formDespesa }
+          >
             <option>Dinheiro</option>
             <option>Cartão de crédito</option>
             <option>Cartão de débito</option>
@@ -53,8 +129,14 @@ class WalletForm extends Component {
         </label>
 
         <label htmlFor="conta">
-          Forma de pagamento
-          <select data-testid="tag-input" id="conta">
+          Categoria de despesa
+          <select
+            data-testid="tag-input"
+            id="conta"
+            name="categoriaDespesa"
+            value={ categoriaDespesa }
+            onChange={ this.formDespesa }
+          >
             <option>Alimentação</option>
             <option>Lazer</option>
             <option>Trabalho</option>
@@ -64,6 +146,15 @@ class WalletForm extends Component {
           </select>
         </label>
 
+        <button
+          type="button"
+          onClick={ this.adicionar }
+          disabled={ disabled }
+        >
+          Adicionar despesa
+
+        </button>
+
       </>
 
     );
@@ -72,6 +163,7 @@ class WalletForm extends Component {
 
 WalletForm.propTypes = {
   moedas: PropTypes.arrayOf.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

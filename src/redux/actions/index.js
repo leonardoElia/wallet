@@ -10,6 +10,11 @@ export const actionCurrencies = (objeto) => ({
   objeto,
 });
 
+export const actionAdiconarDespesa = (despesa) => ({
+  type: 'ADICONAR_DESPESA',
+  despesa,
+});
+
 export const fetchCurrencies = () => (dispatch) => fetch('https://economia.awesomeapi.com.br/json/all')
   .then((response) => response.json())
   .then((json) => dispatch(actionCurrencies(json)))

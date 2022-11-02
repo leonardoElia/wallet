@@ -16,6 +16,11 @@ const Wallet = (state = initialState, action) => {
       ...state,
       currencies: filterChave,
     };
+  case 'ADICONAR_DESPESA':
+    return {
+      ...state,
+      expenses: [...state.expenses, action.despesa],
+    };
   default:
     return state;
   }
