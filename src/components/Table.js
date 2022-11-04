@@ -1,15 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { actionRemoverDespesa } from '../redux/actions';
 
 class Table extends Component {
+  exluirDespesa = (event) => {
+    const { name } = event.target;
+    // console.log(event.target)
+    const { dispatch } = this.props;
+    dispatch(actionRemoverDespesa(name));
+  };
+
   render() {
     const { expenses } = this.props;
+    console.log(expenses);
     const expensesAdptacao = expenses.map((e) => {
       const moedaSelect = e.currency;
       const convercao = Number(e.value) * Number(e.exchangeRates[moedaSelect].ask);
       const cambioDoMomento = Number(e.exchangeRates[moedaSelect].ask);
       const valorDecimal = Number(e.value);
+
       return {
         description: e.description,
         tag: e.tag,
@@ -19,6 +29,16 @@ class Table extends Component {
         cambio: cambioDoMomento.toFixed(2),
         valorConvertido: convercao.toFixed(2),
         moedaConvercao: 'Real',
+        botaoExcluir:
+  <button
+    type="button"
+    name={ e.id }
+    onClick={ this.exluirDespesa }
+    data-testid="delete-btn"
+  >
+    Excluir
+
+  </button>,
       };
     });
     return (
@@ -39,9 +59,17 @@ class Table extends Component {
           </tr>
 
           <tbody>
-            {expensesAdptacao.map((e, x) => {
+            {expensesAdptacao.map((e) => {
               const valores = Object.values(e);
-              return <tr key={ x }>{valores.map((el, i) => <td key={ i }>{el}</td>)}</tr>;
+              const aleatorio = Number(Math.random() * 100);
+
+              return (
+                <tr key={ aleatorio }>
+                  {valores.map((el, i) => (
+                    <td key={ i }>{el}</td>
+                  ))}
+                </tr>
+              );
             })}
           </tbody>
 
@@ -53,6 +81,7 @@ class Table extends Component {
 }
 Table.propTypes = {
   expenses: PropTypes.arrayOf.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

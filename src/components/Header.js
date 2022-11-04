@@ -21,7 +21,6 @@ class Header extends Component {
         <p data-testid="total-field">{somaConvercao.toFixed(2)}</p>
         <p data-testid="header-currency-field">BRL</p>
       </>
-
     );
   }
 }

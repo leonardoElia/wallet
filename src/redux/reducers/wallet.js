@@ -7,6 +7,8 @@ const initialState = {
 };
 let chaves = [];
 let filterChave = [];
+let id = 0;
+let novoExpenses = [];
 const Wallet = (state = initialState, action) => {
   switch (action.type) {
   case 'ADICONAR_MOEDA':
@@ -20,6 +22,13 @@ const Wallet = (state = initialState, action) => {
     return {
       ...state,
       expenses: [...state.expenses, action.despesa],
+    };
+  case 'REMOVER_DESPESA':
+    id = action.id;
+    novoExpenses = state.expenses.filter((e) => e.id !== Number(id));
+    return {
+      ...state,
+      expenses: novoExpenses,
     };
   default:
     return state;
