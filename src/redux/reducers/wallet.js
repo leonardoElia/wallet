@@ -11,7 +11,7 @@ let id = 0;
 let novoExpenses = [];
 let idEdit = 0;
 let objetoEdit = {};
-let index = 0;
+let novoArray = [];
 const Wallet = (state = initialState, action) => {
   switch (action.type) {
   case 'ADICONAR_MOEDA':
@@ -33,40 +33,32 @@ const Wallet = (state = initialState, action) => {
       ...state,
       expenses: novoExpenses,
     };
-    case 'INICIAR_EDICAO':
-      return {
-        ...state,
-        editor: true,
-        idToEdit: action.id,
-      };
-case 'EDITANDO_DESPESA':
-  idEdit = state.idToEdit
-  objetoEdit = state.expenses.find((e) => e.id === Number(idEdit))
-  const novoExpenses = state.expenses.map((e) => {
-           if(Number(idEdit) === e.id){
-            return {
-             id: Number(idEdit),
-             value: action.despesaEdit.value,
-             description: action.despesaEdit.description,
-             currency: action.despesaEdit.currency,
-             method: action.despesaEdit.method,
-             tag: action.despesaEdit.tag,
-             exchangeRates: objetoEdit.exchangeRates ,
-            }
-           } 
-           return e;
-  })
-  
-
- 
- 
-
-  return {
-    ...state,
-    editor: false,
-    idToEdit:0,
-    expenses: novoExpenses,
-  }
+  case 'INICIAR_EDICAO':
+    return { ...state, editor: true, dToEdit: action.id,
+    };
+  case 'EDITANDO_DESPESA':
+    idEdit = state.idToEdit;
+    objetoEdit = state.expenses.find((e) => e.id === Number(idEdit));
+    novoArray = state.expenses.map((e) => {
+      if (Number(idEdit) === e.id) {
+        return {
+          id: Number(idEdit),
+          value: action.despesaEdit.value,
+          description: action.despesaEdit.description,
+          currency: action.despesaEdit.currency,
+          method: action.despesaEdit.method,
+          tag: action.despesaEdit.tag,
+          exchangeRates: objetoEdit.exchangeRates,
+        };
+      }
+      return e;
+    });
+    return {
+      ...state,
+      editor: false,
+      idToEdit: 0,
+      expenses: novoArray,
+    };
   default:
     return state;
   }

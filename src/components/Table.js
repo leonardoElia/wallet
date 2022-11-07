@@ -11,10 +11,10 @@ class Table extends Component {
   };
 
   editarDespesa = (event) => {
-const {name} = event.target;
-const { dispatch } = this.props;
-dispatch(actionEditarDespesa(name))
-  }
+    const { name } = event.target;
+    const { dispatch } = this.props;
+    dispatch(actionEditarDespesa(name));
+  };
 
   render() {
     const { expenses } = this.props;
@@ -34,27 +34,27 @@ dispatch(actionEditarDespesa(name))
         valorConvertido: convercao.toFixed(2),
         moedaConvercao: 'Real',
         botaos:
-        <>
-        <button
-    type="button"
-    name={ e.id }
-    onClick={ this.editarDespesa }
-    data-testid="edit-btn"
-  >
-    Editar
+  <>
+    <button
+      type="button"
+      name={ e.id }
+      onClick={ this.editarDespesa }
+      data-testid="edit-btn"
+    >
+      Editar
 
-  </button>
-        <button
-    type="button"
-    name={ e.id }
-    onClick={ this.exluirDespesa }
-    data-testid="delete-btn"
-  >
-    Excluir
+    </button>
+    <button
+      type="button"
+      name={ e.id }
+      onClick={ this.exluirDespesa }
+      data-testid="delete-btn"
+    >
+      Excluir
 
-  </button>
-        </>,
-  
+    </button>
+  </>,
+
       };
     });
     return (
