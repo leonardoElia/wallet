@@ -42,17 +42,30 @@ const Wallet = (state = initialState, action) => {
 case 'EDITANDO_DESPESA':
   idEdit = state.idToEdit
   objetoEdit = state.expenses.find((e) => e.id === Number(idEdit))
-  index =state.expenses.indexOf(objetoEdit)
-  state.expenses[index].value = action.despesaEdit.value
-  state.expenses[index].description = action.despesaEdit.description
-  state.expenses[index].currency = action.despesaEdit.currency
-  state.expenses[index].method = action.despesaEdit.method
-  state.expenses[index].tag = action.despesaEdit.tag;
+  const novoExpenses = state.expenses.map((e) => {
+           if(Number(idEdit) === e.id){
+            return {
+             id: Number(idEdit),
+             value: action.despesaEdit.value,
+             description: action.despesaEdit.description,
+             currency: action.despesaEdit.currency,
+             method: action.despesaEdit.method,
+             tag: action.despesaEdit.tag,
+             exchangeRates: objetoEdit.exchangeRates ,
+            }
+           } 
+           return e;
+  })
+  
+
+ 
+ 
+
   return {
     ...state,
     editor: false,
     idToEdit:0,
-    expenses: state.expenses
+    expenses: novoExpenses,
   }
   default:
     return state;
