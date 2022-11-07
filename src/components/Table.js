@@ -1,19 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { actionRemoverDespesa } from '../redux/actions';
+import { actionEditarDespesa, actionRemoverDespesa } from '../redux/actions';
 
 class Table extends Component {
   exluirDespesa = (event) => {
     const { name } = event.target;
-    // console.log(event.target)
     const { dispatch } = this.props;
     dispatch(actionRemoverDespesa(name));
   };
 
+  editarDespesa = (event) => {
+const {name} = event.target;
+const { dispatch } = this.props;
+dispatch(actionEditarDespesa(name))
+  }
+
   render() {
     const { expenses } = this.props;
-    console.log(expenses);
     const expensesAdptacao = expenses.map((e) => {
       const moedaSelect = e.currency;
       const convercao = Number(e.value) * Number(e.exchangeRates[moedaSelect].ask);
@@ -29,8 +33,18 @@ class Table extends Component {
         cambio: cambioDoMomento.toFixed(2),
         valorConvertido: convercao.toFixed(2),
         moedaConvercao: 'Real',
-        botaoExcluir:
-  <button
+        botaos:
+        <>
+        <button
+    type="button"
+    name={ e.id }
+    onClick={ this.editarDespesa }
+    data-testid="edit-btn"
+  >
+    Editar
+
+  </button>
+        <button
     type="button"
     name={ e.id }
     onClick={ this.exluirDespesa }
@@ -38,7 +52,9 @@ class Table extends Component {
   >
     Excluir
 
-  </button>,
+  </button>
+        </>,
+  
       };
     });
     return (

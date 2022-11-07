@@ -20,6 +20,16 @@ export const actionRemoverDespesa = (id) => ({
   id,
 });
 
+export const actionEditarDespesa = (id) => ({
+  type: 'INICIAR_EDICAO',
+  id,
+})
+
+export const actionEditandoDespesa = (despesaEdit) => ({
+type: 'EDITANDO_DESPESA',
+despesaEdit,
+})
+
 export const fetchCurrencies = () => (dispatch) => fetch('https://economia.awesomeapi.com.br/json/all')
   .then((response) => response.json())
   .then((json) => dispatch(actionCurrencies(json)))

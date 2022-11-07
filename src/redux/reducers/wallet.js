@@ -9,6 +9,9 @@ let chaves = [];
 let filterChave = [];
 let id = 0;
 let novoExpenses = [];
+let idEdit = 0;
+let objetoEdit = {};
+let index = 0;
 const Wallet = (state = initialState, action) => {
   switch (action.type) {
   case 'ADICONAR_MOEDA':
@@ -30,6 +33,27 @@ const Wallet = (state = initialState, action) => {
       ...state,
       expenses: novoExpenses,
     };
+    case 'INICIAR_EDICAO':
+      return {
+        ...state,
+        editor: true,
+        idToEdit: action.id,
+      };
+case 'EDITANDO_DESPESA':
+  idEdit = state.idToEdit
+  objetoEdit = state.expenses.find((e) => e.id === Number(idEdit))
+  index =state.expenses.indexOf(objetoEdit)
+  state.expenses[index].value = action.despesaEdit.value
+  state.expenses[index].description = action.despesaEdit.description
+  state.expenses[index].currency = action.despesaEdit.currency
+  state.expenses[index].method = action.despesaEdit.method
+  state.expenses[index].tag = action.despesaEdit.tag;
+  return {
+    ...state,
+    editor: false,
+    idToEdit:0,
+    expenses: state.expenses
+  }
   default:
     return state;
   }
