@@ -7,12 +7,15 @@ import WalletForm from '../components/WalletForm';
 import FormEditar from '../components/FormEditar';
 
 class Wallet extends React.Component {
+  componentDidMount() {
+    document.body.style.backgroundColor = 'white';
+  }
+
   render() {
     const { editor } = this.props;
     return (
       <>
         <Header />
-        <h1>TrybeWallet</h1>
         {(editor === false) ? <WalletForm /> : <FormEditar /> }
         <Table />
       </>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { actionAdiconarDespesa, fetchCurrencies } from '../redux/actions';
+import '../style/form.css';
 
 class WalletForm extends Component {
   constructor() {
@@ -12,7 +13,7 @@ class WalletForm extends Component {
       descricao: '',
       moeda: 'USD',
       formaPagamento: 'Cartão de crédito',
-      categoriaDespesa: '',
+      categoriaDespesa: 'Alimentação',
       disabled: true,
       id: 0,
     };
@@ -69,6 +70,8 @@ class WalletForm extends Component {
         descricao: '',
         disabled: true,
       });
+    } else {
+      alert('O valor  da despesa precisa ser númerico');
     }
   };
 
@@ -77,76 +80,85 @@ class WalletForm extends Component {
     const { valor, descricao, moeda, formaPagamento, categoriaDespesa,
       disabled } = this.state;
     return (
-      <>
-        <h1>WalletForm</h1>
-        <label htmlFor="despesa">
-          Adicionar valor da despesa
-          <input
-            type="text"
-            data-testid="value-input"
-            id="despesa"
-            name="valor"
-            onChange={ this.formDespesa }
-            value={ valor }
-          />
-        </label>
-        <label htmlFor="descricao">
-          Descrição da despesa
-          <textarea
-            data-testid="description-input"
-            id="descricao"
-            name="descricao"
-            onChange={ this.formDespesa }
-            value={ descricao }
-          />
-        </label>
-        <label htmlFor="moeda">
-          Moeda que será registrada na Despesa
-          <select
-            name="moeda"
-            id="moeda"
-            onChange={ this.formDespesa }
-            data-testid="currency-input"
-            value={ moeda }
-          >
-            {moedas.map((e, i) => <option value={ e } key={ i }>{e}</option>)}
+      <div className="formularioBox">
+        <div className="formText">
+          <label htmlFor="despesa">
+            Adicionar valor da despesa
+            <input
+              className="inputValor"
+              type="text"
+              data-testid="value-input"
+              id="despesa"
+              name="valor"
+              onChange={ this.formDespesa }
+              value={ valor }
+            />
+          </label>
+          <label htmlFor="descricao">
+            Descrição da despesa
+            <textarea
+              className="inputDescricao"
+              data-testid="description-input"
+              id="descricao"
+              name="descricao"
+              onChange={ this.formDespesa }
+              value={ descricao }
+            />
+          </label>
+        </div>
+        <div className="boxSelect">
+          <label htmlFor="moeda">
+            <span className="moedaText">Moeda</span>
+            <select
+              className="inputMoeda"
+              name="moeda"
+              id="moeda"
+              onChange={ this.formDespesa }
+              data-testid="currency-input"
+              value={ moeda }
+            >
+              {moedas.map((e, i) => <option value={ e } key={ i }>{e}</option>)}
 
-          </select>
-        </label>
-        <label htmlFor="pagamento">
-          Forma de pagamento
-          <select
-            data-testid="method-input"
-            id="pagamento"
-            value={ formaPagamento }
-            name="formaPagamento"
-            onChange={ this.formDespesa }
-          >
-            <option>Dinheiro</option>
-            <option>Cartão de crédito</option>
-            <option>Cartão de débito</option>
-          </select>
-        </label>
+            </select>
+          </label>
+          <label htmlFor="pagamento">
+            Forma de pagamento
+            <select
+              className="inputPagamento"
+              data-testid="method-input"
+              id="pagamento"
+              value={ formaPagamento }
+              name="formaPagamento"
+              onChange={ this.formDespesa }
+            >
+              <option>Dinheiro</option>
+              <option>Cartão de crédito</option>
+              <option>Cartão de débito</option>
+            </select>
+          </label>
 
-        <label htmlFor="conta">
-          Categoria de despesa
-          <select
-            data-testid="tag-input"
-            id="conta"
-            name="categoriaDespesa"
-            value={ categoriaDespesa }
-            onChange={ this.formDespesa }
-          >
-            <option>Alimentação</option>
-            <option>Lazer</option>
-            <option>Trabalho</option>
-            <option>Transporte</option>
-            <option>Saúde</option>
+          <label htmlFor="conta">
+            <span className="textCategoria">Categoria da despesa</span>
+            <select
+              className="inputConta"
+              data-testid="tag-input"
+              id="conta"
+              name="categoriaDespesa"
+              value={ categoriaDespesa }
+              onChange={ this.formDespesa }
+            >
+              <option>Alimentação</option>
+              <option>Lazer</option>
+              <option>Trabalho</option>
+              <option>Transporte</option>
+              <option>Saúde</option>
 
-          </select>
-        </label>
+            </select>
+          </label>
+        </div>
 
         <button
+          className="buttonAdicionar"
           type="button"
           onClick={ this.adicionar }
           disabled={ disabled }
@@ -155,7 +167,7 @@ class WalletForm extends Component {
 
         </button>
 
-      </>
+      </div>
 
     );
   }

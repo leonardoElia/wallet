@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { actionEditarDespesa, actionRemoverDespesa } from '../redux/actions';
 
+import '../style/table.css';
+
 class Table extends Component {
   exluirDespesa = (event) => {
     const { name } = event.target;
@@ -12,12 +14,13 @@ class Table extends Component {
 
   editarDespesa = (event) => {
     const { name } = event.target;
+    console.log(name);
     const { dispatch } = this.props;
     dispatch(actionEditarDespesa(name));
   };
 
   render() {
-    const { expenses } = this.props;
+    const { expenses, editor } = this.props;
     const expensesAdptacao = expenses.map((e) => {
       const moedaSelect = e.currency;
       const convercao = Number(e.value) * Number(e.exchangeRates[moedaSelect].ask);
@@ -36,19 +39,24 @@ class Table extends Component {
         botaos:
   <>
     <button
+      className="buttonEditar"
       type="button"
       name={ e.id }
       onClick={ this.editarDespesa }
       data-testid="edit-btn"
+      disabled={ editor }
     >
+
       Editar
 
     </button>
     <button
+      className="buttonExcluir"
       type="button"
       name={ e.id }
       onClick={ this.exluirDespesa }
       data-testid="delete-btn"
+      disabled={ editor }
     >
       Excluir
 
@@ -58,8 +66,8 @@ class Table extends Component {
       };
     });
     return (
-      <>
-        <h1>Table</h1>
+      <center>
+
         <table border="1">
 
           <tr>
@@ -80,7 +88,7 @@ class Table extends Component {
               const aleatorio = Number(Math.random() * 100);
 
               return (
-                <tr key={ aleatorio }>
+                <tr key={ aleatorio } className="despesa">
                   {valores.map((el, i) => (
                     <td key={ i }>{el}</td>
                   ))}
@@ -90,7 +98,7 @@ class Table extends Component {
           </tbody>
 
         </table>
-      </>
+      </center>
 
     );
   }
@@ -98,10 +106,12 @@ class Table extends Component {
 Table.propTypes = {
   expenses: PropTypes.arrayOf.isRequired,
   dispatch: PropTypes.func.isRequired,
+  editor: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
+  editor: state.wallet.editor,
 });
 
 export default connect(mapStateToProps)(Table);

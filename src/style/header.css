@@ -1,0 +1,10 @@
+header {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background-color: #3e4144;
+    display: flex;
+    justify-content: space-evenly;
+    color: white;
+    font-weight: bold;
+}

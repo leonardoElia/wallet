@@ -25,7 +25,7 @@ const Wallet = (state = initialState, action) => {
     novoExpenses = state.expenses.filter((e) => e.id !== Number(id));
     return { ...state, expenses: novoExpenses };
   case 'INICIAR_EDICAO':
-    return { ...state, editor: true, dToEdit: action.id };
+    return { ...state, editor: true, idToEdit: action.id };
   case 'EDITANDO_DESPESA':
     idEdit = state.idToEdit;
     objetoEdit = state.expenses.find((e) => e.id === Number(idEdit));

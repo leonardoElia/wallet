@@ -1,0 +1,105 @@
+.formularioBox {
+    position: relative;
+    margin-top: 6%;
+    display: flex;
+    flex-direction: column;
+ align-items: center;
+}
+
+.inputValor {
+    margin-right: 30px;
+    margin-left:  11px;
+    width: 158px;
+    height: 30px;
+    border-radius: 5px;
+    outline: 0;
+    border: 1px solid black;
+}
+
+.inputValor:focus {
+    border: 1px solid blue;
+}
+
+.inputDescricao:focus {
+    border: 1px solid blue;
+}
+
+.inputDescricao {
+    margin-left: 11px;
+    width: 288px;
+    height: 30px;
+    position: relative;
+    top: 14px;
+    border-radius: 5px;
+    outline: 0;
+    border: 1px solid black;
+}
+
+.boxSelect {
+    margin-top: 28px;
+}
+
+.moedaText {
+    margin-left: -20px;
+}
+
+.inputMoeda {
+    margin-left: 6.5px;
+    margin-right: 90px;
+    border-radius: 5px;
+}
+
+.inputPagamento {
+ margin-left: 6.5px;
+ margin-right: 90px;
+ border-radius: 5px;
+}
+
+.inputConta {
+    border-radius: 5px;
+}
+
+.inputConta:focus {
+    outline: 0;
+    border: 1px solid blue;
+}
+
+.inputPagamento:focus {
+    outline: 0;
+    border: 1px solid blue;
+}
+
+.inputMoeda:focus {
+    outline: 0;
+    border: 1px solid blue;
+}
+
+.textCategoria {
+    margin-right: 6.5px;
+}
+
+.buttonAdicionar {
+    background-color: #1c7f12;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border: transparent;
+    border-radius:  5px;
+    box-shadow: none;
+    width: 300px;
+    height: 30px;
+    margin-top: 30px;
+}
+
+.buttonAdicionar:disabled {
+    opacity: 0.7;
+    cursor:not-allowed;
+}
+
+.buttonAdicionar:active {
+    transform: scale(.9);
+    transition: all 100ms ease;
+  }
+  
+
+

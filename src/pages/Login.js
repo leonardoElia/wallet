@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { mudarEmail } from '../redux/actions';
+import '../style/login.css';
+import logo from '../imagens/logo.jpg';
 
 const minimoSenha = 6;
 
@@ -13,6 +15,10 @@ class Login extends React.Component {
       email: '',
       disabled: true,
     };
+  }
+
+  componentDidMount() {
+    document.body.style.backgroundColor = '#65727c';
   }
 
   entrar = () => {
@@ -42,32 +48,33 @@ class Login extends React.Component {
   render() {
     const { senha, email, disabled } = this.state;
     return (
-      <>
-        <h1>Login</h1>
-        <label htmlFor="email">
-          email
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={ email }
-            data-testid="email-input"
-            onChange={ this.alterarCampo }
-          />
-        </label>
-        <label htmlFor="password">
-          Senha
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={ senha }
-            data-testid="password-input"
-            onChange={ this.alterarCampo }
-          />
 
-        </label>
+      <div className="boxLogin">
+        <img src={ logo } alt="logo" className="logo" />
+        <input
+          className="inputLogin"
+          type="email"
+          id="email"
+          name="email"
+          value={ email }
+          data-testid="email-input"
+          placeholder=" Email"
+          onChange={ this.alterarCampo }
+        />
+
+        <input
+          className="inputLogin"
+          type="password"
+          id="password"
+          name="password"
+          value={ senha }
+          data-testid="password-input"
+          placeholder=" Senha"
+          onChange={ this.alterarCampo }
+        />
+
         <button
+          className="buttonEntrar"
           disabled={ disabled }
           onClick={ this.entrar }
           type="button"
@@ -75,7 +82,8 @@ class Login extends React.Component {
           ENTRAR
 
         </button>
-      </>
+      </div>
+
     );
   }
 }

@@ -1,0 +1,62 @@
+table { 
+    margin-top: 50px;
+    border: 1px solid  black;
+    border-collapse: collapse;
+}
+
+th {
+width: 120px;
+background-color: #65727c;
+color: black;
+}
+
+td {
+ text-align: center;
+}
+
+.despesa:hover {
+background-color: #bdbdbd;
+}
+
+.buttonEditar {
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border: transparent;
+    border-radius:  5px;
+    box-shadow: none;
+    margin-right: 5px;
+}
+
+.buttonEditar:disabled {
+    opacity: 0.6;
+    cursor:not-allowed;
+}
+
+.buttonEditar:active {
+    transform: scale(.9);
+    transition: all 100ms ease;
+}
+
+.buttonExcluir {
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border: transparent;
+    border-radius:  5px;
+    box-shadow: none;
+}
+
+.buttonExcluir:disabled {
+    opacity: 0.6;
+    cursor:not-allowed;
+}
+
+.buttonExcluir:active {
+    transform: scale(.9);
+    transition: all 100ms ease;
+}
+  
+ 
