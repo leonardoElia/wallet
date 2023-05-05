@@ -8,7 +8,7 @@ em um software e os problemas que se resolve com isso.
 ## tecnologias e ferramentas utilizadas utilizadas
 * React
 * BrowserRouter
-* Estado globla com Redux
+* Estado global com Redux
 * css
 
 ## para fazer login
