@@ -2,7 +2,7 @@
 
 ## sobre o projeto
 Você está tendo dificuldade em orgazinar seus gastos? então venha conhecer meu projeto wallet uma aplicação que permite que você controle os seus gastos
-com um conversor de moedas. o Wallet foi meu primeiro projeto usando um estado global, ele foi fundamental para que eu entede-se a importância de um estado global
+com um conversor de moedas. O Wallet foi meu primeiro projeto usando um estado global, ele foi fundamental para que eu entede-se a importância de um estado global
 em um software e os problemas que se resolve com isso.
 
 ## tecnologias e ferramentas utilizadas utilizadas
